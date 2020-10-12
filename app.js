@@ -24,7 +24,7 @@ app.use(express.static("public"));
 
 
 // challenge upgrade blog, create connection with mongodb
-mongoose.connect('mongodb://localhost/blogDB', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://Admin-Marius:parola1234@cluster0.q8iwr.gcp.mongodb.net/blogDB', {useNewUrlParser: true});
 const postSchema ={
   title: String,
   content: String
