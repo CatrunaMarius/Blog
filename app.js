@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 // challenge 18
 const _ = require('lodash');
-// challenge upgrade blog
+// challenge upgrade blog, import mongoose 
 const mongoose = require('mongoose');
 
 const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
@@ -14,7 +14,8 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 const app = express();
 
-
+// the port to which the site can be accessed (online and local hosting)
+const port = process.env.PORT || 3000
 
 app.set('view engine', 'ejs');
 
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 
-// challenge upgrade blog
+// challenge upgrade blog, create connection with mongodb
 mongoose.connect('mongodb://localhost/blogDB', {useNewUrlParser: true});
 const postSchema ={
   title: String,
@@ -33,7 +34,7 @@ const Post =mongoose.model("Post",postSchema )
 
 
 app.get("/", function(req,res){
- // challenge upgrade blog
+ // challenge upgrade blog, displays all articles written on the blog 
 
   Post.find({}, function(err,posts){
     res.render("home", {text:homeStartingContent, post:posts} );
@@ -49,7 +50,7 @@ app.get("/compose", function(req,res){
   res.render("compose")
 })
 
-// challenge upgrade blog
+// challenge upgrade blog,create articles with the title and content
 app.post("/compose", function(req, res){
    
     const post = new Post( {title: req.body.postTitle,
@@ -64,7 +65,8 @@ app.post("/compose", function(req, res){
     
 })
 
-// challenge upgrade blog
+// challenge upgrade blog,sends the user to a page they are looking for 
+// in the search bar only if there is an article on the site
 
 app.get("/posts/:postId",function(req, res){
   
@@ -98,7 +100,7 @@ app.get("/contact", function(req, res){
 
 
 
-app.listen(9000, function() {
-  console.log("Server started on port 3000");
+app.listen(port, function() {
+  console.log("Server started on port " + port);
   
 });

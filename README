@@ -1,0 +1,9 @@
+Creare unu blog
+Functii blog
+
+tot continulu blogului este salvat in baza de date de la mongoDB
+
+app.get("/") -> randeaza pagina de home cu continutul postat
+app.get("/compose") -> randeaza pagina sereta (fata de utilizatori)
+app.post("/compose") -> posibilitatea de a posta articole
+app.get("/posts/:postId") ->cu acesta functi  accesaza  pagina unde se afla articolul postat 
